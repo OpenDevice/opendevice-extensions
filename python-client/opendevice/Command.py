@@ -35,7 +35,7 @@ class Command(object):
     timestamp = None
 
     def __init__(self, ctype):
-        self.ctype = ctype
+        self.type = ctype
 
 
 

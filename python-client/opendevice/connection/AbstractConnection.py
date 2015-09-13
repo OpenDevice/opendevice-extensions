@@ -30,42 +30,40 @@ class AbstractConnection(object):
     def __init__(self):
         self.conn = None
         self.listeners = []
-        self.status = ConnectionStatus.DISCONNECTED
+        self._status = ConnectionStatus.DISCONNECTED
         self.manager = None
+        self.reader = None
 
     def _start_reading(self, conn):
         self.conn = conn
         # Start reading thread.
-        CommandStreamReader(self, conn).start()
+        self.reader = CommandStreamReader(self, conn)
+        self.reader.start()
 
-    def send(self, message):
-        self.conn.sendall(message + "\r\n");
+    def send(self, cmd):
+        data = CommandStreamReader.serialize(cmd)
+        self.conn.send(data)
 
     #
     # 	Notify All Listeners about received command.
     # 	 
-    def notify_listeners(self, message):
-        print("notify_listeners : " + str(message.ctype) + " , " + str(message.deviceID)+ " , " + str(message.value))
-        if not self.listeners:
-            logging.error("No listener was registered ! use: addListener")
-        for listener in self.listeners:
-            if hasattr(listener, 'on_message_received'):
-                listener.on_message_received(message)
-            else:
-                listener(message)
+    def notifyListeners(self, message):
+        self.manager._onMessageReceived(message)
 
     # =======================================================
     #  Set's / Get's
     #  =======================================================
-    def setStatus(self, status):
-        """ generated source for method setStatus """
-        self.status = status
-        if self.listeners.isEmpty():
-            self.log.warn("No listener was registered ! use: addListener")
-        for listener in self.listeners:
-            listener.connectionStateChanged(self, status)
 
-    def is_connected(self):
+    def setStatus(self, value):
+        print("AbstractConnection.setStatus >>>>>>>> " + str(value))
+        self._status = value
+
+    def getStatus(self):
+        return self._status
+
+    status = property(getStatus, setStatus)
+
+    def isConnected(self):
         return self.status == ConnectionStatus.CONNECTED
 
     def add_listener(self, e):

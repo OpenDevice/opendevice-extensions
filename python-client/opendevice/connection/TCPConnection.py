@@ -45,6 +45,7 @@ class TCPConnection(AbstractConnection):
             self.sock.connect((self.host, self.port))
             self.status = ConnectionStatus.CONNECTED
             self._start_reading(self.sock)
+            self.manager._notifyListeners("onConnect")
         except socket_error as e:
             self.status = ConnectionStatus.FAIL
             if e.errno == errno.ECONNREFUSED:
@@ -52,6 +53,7 @@ class TCPConnection(AbstractConnection):
             raise e
 
     def disconnect(self):
+        super(TCPConnection, self).disconnect()
         if self.sock is not None:
             logging.debug("Disconnecting...")
             self.sock.close()
