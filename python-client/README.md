@@ -13,8 +13,8 @@ The main purpose of developing this library was to integrate with blender, [take
 
 Videos
 ---------------
-[OpenDevice Python Client - Performance Test](https://www.youtube.com/watch?v=1h6N7G7cNpU )
-[OpenDevice + Blender - Controlling Bones (from Java)](https://youtu.be/UzPGMdgCZIE)
+* [OpenDevice Python Client - Performance Test](https://www.youtube.com/watch?v=1h6N7G7cNpU ) 
+* [OpenDevice + Blender - Controlling Bones (from Java)](https://youtu.be/UzPGMdgCZIE)
 
 Getting started
 ---------------
