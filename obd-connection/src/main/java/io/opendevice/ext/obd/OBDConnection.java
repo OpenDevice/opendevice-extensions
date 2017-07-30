@@ -107,7 +107,6 @@ public class OBDConnection extends AbstractConnection implements EmbeddedGPIO {
                             for (OBDSensor obdSensor : obdSensors) {
                                 AbstractConnection.log.info("Found sensor: " + obdSensor.getName());
                                 attach(obdSensor);
-                                if(enableAllSensors) obdSensor.setEnabled(true);
                             }
 
                             if(obdSensors.isEmpty()) AbstractConnection.log.warn("Devices not found, check protocol !");
@@ -136,12 +135,15 @@ public class OBDConnection extends AbstractConnection implements EmbeddedGPIO {
     @Override
     public void connect() throws ConnectionException {
 
-        if(!transport.isConnected()) transport.connect();
+        if(!transport.isConnected()){
+            setStatus(ConnectionStatus.CONNECTING);
+            transport.connect();
+        }
 
         if(transport.isConnected()){
             try {
                 send(OBDATCommand.RESET);
-                 Thread.sleep(2000);
+                Thread.sleep(1000);
                 send(OBDATCommand.ECHO_OFF);
                 send(OBDATCommand.SPACE_OFF);
                 send(OBDATCommand.ADAPTIVE_TIMING);
@@ -281,6 +283,8 @@ public class OBDConnection extends AbstractConnection implements EmbeddedGPIO {
         if(device instanceof OBDSensor){
 
             OBDSensor sensor = (OBDSensor) device;
+
+            if(enableAllSensors) sensor.setEnabled(true);
 
             for (Device current : devices) {
                 if(current.getName() != null && current.getName().equals(sensor.getName())){
