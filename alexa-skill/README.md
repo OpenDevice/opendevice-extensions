@@ -1,0 +1,1 @@
+This is the source code used by OpenDevice Skill. You can use the one available in the Alexa repository.
