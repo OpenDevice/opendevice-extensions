@@ -1,0 +1,17 @@
+{
+    "header": {
+      "namespace": "Alexa.ConnectedHome.Control",
+      "name": "TurnOnRequest",
+      "payloadVersion": "2",
+      "messageId": "0a683a2d-22fb-4cde-8e02-1e92ea279516"
+    },
+    "payload": {
+      "accessToken": "ya29.GlziBNHzZi6GGoBifNO8OD0aiWr6aDsabS7izYLICAkzgk2sFob83eWL2AeKZ-MSODdXVrauJ94wOweMIxZhCti-JTX5PdkbFwTFbLvp_YNQfEXhUcR8itHPnCzQfQ",
+      "appliance": {
+        "applianceId": "3",
+        "additionalApplianceDetails": {
+          "parentID": "1"
+        }
+      }
+    }
+  }
