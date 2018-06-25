@@ -40,8 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLException;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collection;
 
 /**
@@ -122,23 +121,7 @@ public class SonOffServerConnection extends AbstractConnection implements Server
         builder.initParam("com.sun.jersey.api.json.POJOMappingFeature","true");
         builder.initParam(ApplicationConfig.SCAN_CLASSPATH,"false");
 
-        OpenDeviceConfig config = ODev.getConfig();
-
-        File cert = config.getFile("sonoff.ssl.certificateFile");
-        if(cert == null) throw new IllegalArgumentException("Certificate not found (check sonoff.ssl.certificateFile) !");
-        File key = config.getFile("sonoff.ssl.certificateKey");
-        if(key == null) throw new IllegalArgumentException("Certificate key must be provided (check sonoff.ssl.certificateKey) !");
-
-        try {
-            SslContextBuilder sslContextBuilder = SslContextBuilder.forServer(cert, key);
-            sslContextBuilder.sslProvider(SslProvider.JDK);
-            SslContext sslContext = sslContextBuilder.build();
-            builder.sslContext(sslContext);
-//            SslContext sslContext = SslContext.newServerContext(SslProvider.JDK, cert, key, "");
-//            builder.sslContext(sslContext);
-        } catch (SSLException e) {
-            e.printStackTrace();
-        }
+        builder.sslContext(generateSSLContext());
 
         server = new Nettosphere.Builder().config(builder.build()).build();
         broadcasterFactory = server.framework().getBroadcasterFactory();
@@ -166,6 +149,49 @@ public class SonOffServerConnection extends AbstractConnection implements Server
         if(manager instanceof DeviceManager){
             this.manager = (DeviceManager) manager;
         }
+    }
+
+    private SslContext generateSSLContext(){
+
+//        File certFile = config.getFile("sonoff.ssl.certificateFile");
+//        if(cert == null) throw new IllegalArgumentException("Certificate not found (check sonoff.ssl.certificateFile) !");
+//        File key = config.getFile("sonoff.ssl.certificateKey");
+//        if(key == null) throw new IllegalArgumentException("Certificate key must be provided (check sonoff.ssl.certificateKey) !");
+
+        OpenDeviceConfig config = ODev.getConfig();
+
+        InputStream cert = null;
+        InputStream key  = null;
+
+        try {
+            File certFile = config.getFile("sonoff.ssl.certificateFile");
+            if(certFile != null){
+                cert = new FileInputStream(certFile);
+            }else{
+                log.info("Using self-signed embedded certificate ...");
+                cert  = getClass().getClassLoader().getResourceAsStream("ssl/cert.pem");
+            }
+
+            File keyFile = config.getFile("sonoff.ssl.certificateKey");
+            if(keyFile != null){
+                key = new FileInputStream(keyFile);
+            }else{
+                key  = getClass().getClassLoader().getResourceAsStream("ssl/key.pem");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            SslContextBuilder sslContextBuilder = SslContextBuilder.forServer(cert, key);
+            sslContextBuilder.sslProvider(SslProvider.JDK);
+            SslContext sslContext = sslContextBuilder.build();
+            return sslContext;
+        } catch (SSLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
 
