@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="355.0" prefWidth="565.0" spacing="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.opendevice.sonoff.wizard.StepPairGuide">
+   <children>
+      <Label text="Enable pairing mode">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <Label text="1. Power up the device and Press the button for 7 seconds, until the green LED fast blinks" wrapText="true" />
+      <ImageView fitHeight="167.0" fitWidth="396.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/sonoff_rf_pair.gif" />
+         </image>
+      </ImageView>
+   </children>
+   <padding>
+      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+   </padding>
+</VBox>

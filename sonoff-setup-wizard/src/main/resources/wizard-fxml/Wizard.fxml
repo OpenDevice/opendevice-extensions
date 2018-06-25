@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.opendevice.sonoff.wizard.WizardController">
+   <children>
+
+      <BorderPane styleClass="header-section">
+         <left>
+            <Label id="header-text" text="SonOff Custom Configuration"/>
+         </left>
+         <right>
+            <HBox fx:id="hboxIndicators" alignment="CENTER" spacing="5.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+               </padding>
+            </HBox>
+         </right>
+      </BorderPane>
+
+      <VBox fx:id="contentPanel" alignment="CENTER" minHeight="250.0" minWidth="568.0" VBox.vgrow="ALWAYS" />
+
+      <Separator prefWidth="200.0" />
+      <HBox alignment="TOP_RIGHT" spacing="4.0">
+         <children>
+            <Button fx:id="btnCancel" cancelButton="true" mnemonicParsing="false" onAction="#cancel" text="Cancel">
+               <HBox.margin>
+                  <Insets right="8.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#back" text="Back" />
+            <Button fx:id="btnNext" mnemonicParsing="false" onAction="#next" text="Next" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+   </children>
+
+   <stylesheets>
+      <URL value="@app.css" />
+   </stylesheets>
+
+</VBox>
