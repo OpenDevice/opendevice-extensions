@@ -30,13 +30,13 @@
     <dependencies>
 
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-rest-ws-server</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
 
         <dependency>
-            <groupId>br.com.criativasoft.opendevice</groupId>
+            <groupId>io.opendevice</groupId>
             <artifactId>opendevice-core</artifactId>
             <version>${opendevice-version}</version>
         </dependency>
