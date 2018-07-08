@@ -17,14 +17,53 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.opendevice</groupId>
+    <groupId>io.opendevice.extensions</groupId>
     <artifactId>sonoff-bridge</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <opendevice-version>0.1.5-SNAPSHOT</opendevice-version>
+        <opendevice-version>0.5.1-SNAPSHOT</opendevice-version>
         <skipTests>true</skipTests>
     </properties>
+
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <name>Sonoff - OpenDevice Integration</name>
+    <description>OpenDevice Extension to support Sonoff Devices</description>
+    <url>https://opendevice.atlassian.net/wiki/spaces/DOC/pages/318472214/SonOff+Integration</url>
+
+
+    <licenses>
+      <license>
+        <name>Eclipse Public License v1.0</name>
+        <url>http://www.eclipse.org/legal/epl-v10.html</url>
+      </license>
+    </licenses>
+
+    <developers>
+        <developer>
+          <name>Ricardo JL Rufino</name>
+          <email>ricardo.jl.rufino@gmail.com</email>
+          <organization>OpenDevice</organization>
+          <organizationUrl>http://opendevice.io</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+      <connection>scm:git:git://github.com/OpenDevice/opendevice-extensions.git</connection>
+      <developerConnection>scm:git:ssh://github.com:OpenDevice/opendevice-extensions.git</developerConnection>
+      <url>https://github.com/OpenDevice/opendevice-extensions/tree/master/sonoff-setup-wizard</url>
+    </scm>
 
 
     <dependencies>
@@ -54,6 +93,35 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-source-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>attach-sources</id>
+                  <phase>deploy</phase>
+                  <goals>
+                    <goal>jar</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-javadoc-plugin</artifactId>
+              <executions>
+                <execution>
+                  <id>attach-javadocs</id>
+                  <phase>deploy</phase>
+                  <goals>
+                    <goal>jar</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>
