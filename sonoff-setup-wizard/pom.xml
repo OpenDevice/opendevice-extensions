@@ -2,8 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.opendevice</groupId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.</version>
+    <!-- <version>1.0.1-SNAPSHOT</version> -->
     <artifactId>sonoff-setup-wizard</artifactId>
+
+    <name>Sonoff Setup Wizard</name>
+    <description>Application to configure sonoff to use OpenDevice server</description>
+    <url>https://opendevice.atlassian.net/wiki/spaces/DOC/pages/318472214/SonOff+Integration</url>
 
     <properties>
         <project.mainClass>io.opendevice.sonoff.wizard.WizardMain</project.mainClass>
@@ -20,6 +25,28 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+    <licenses>
+      <license>
+        <name>Eclipse Public License v1.0</name>
+        <url>http://www.eclipse.org/legal/epl-v10.html</url>
+      </license>
+    </licenses>
+
+    <developers>
+        <developer>
+          <name>Ricardo JL Rufino</name>
+          <email>ricardo.jl.rufino@gmail.com</email>
+          <organization>OpenDevice</organization>
+          <organizationUrl>http://opendevice.io</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+      <connection>scm:git:git://github.com/OpenDevice/opendevice-extensions.git</connection>
+      <developerConnection>scm:git:ssh://github.com:OpenDevice/opendevice-extensions.git</developerConnection>
+      <url>https://github.com/OpenDevice/opendevice-extensions/tree/master/sonoff-setup-wizard</url>
+    </scm>
 
     <dependencies>
         <dependency>
